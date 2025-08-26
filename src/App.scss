@@ -1,16 +1,14 @@
-body,
-.App,
-.App-header {
-  width: 100%;
-  min-height: 100vh;
+body {
   margin: 0;
-  padding: 0;
+  min-height: 100vh;
   box-sizing: border-box;
+  font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
+  background: linear-gradient(135deg, #232526 0%, #414345 100%);
+  color: #fff;
 }
 
 .App {
   text-align: center;
-  width: 100%;
 }
 
 .App-logo {
@@ -46,6 +44,16 @@ body,
   text-shadow: 2px 2px 8px #232526;
 }
 
+.page-heading {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #f1c40f;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-shadow: 2px 2px 8px #232526;
+}
+
 .round-indicator {
   font-size: 1.5rem;
   color: #e67e22;
@@ -55,23 +63,19 @@ body,
 }
 
 .card {
-  background: rgba(44, 62, 80, 0.98);
+  background: rgba(80, 69, 44, 0.98);
   border-radius: 2rem;
   box-shadow: 0 12px 36px 0 rgba(31, 38, 135, 0.37);
   padding: 2.5rem 3rem;
   margin-bottom: 2rem;
-  width: 100%;
-  max-width: 900px;
-  animation: fadeIn 0.7s;
+  max-width: 1500px;
+  animation: fadeIn 0.9s;
+  width: 80%
 }
 
 form {
   width: 80%;
-  background: none;
-  box-shadow: none;
-  padding: 0;
   margin: 0 auto;
-  border-radius: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -91,22 +95,48 @@ label {
 
 input[type="number"],
 input[type="text"] {
-  width: 180px;
-  padding: 0.7rem 1rem;
-  border-radius: 0.7rem;
-  border: none;
-  font-size: 1.1rem;
-  background: #fffbe6;
-  color: #333;
-  box-shadow: 0 2px 8px rgba(241, 196, 15, 0.15);
-  transition: box-shadow 0.2s, border 0.2s;
+  width: 220px;
+  padding: 0.9rem 1.2rem;
+  border-radius: 1.5rem;
+  border: 2px solid #f1c40f;
+  font-size: 1.15rem;
+  font-weight: 700;
+  background: #232526;
+  color: #f1c40f;
+  box-shadow: 0 2px 12px rgba(241, 196, 15, 0.12);
+  transition: box-shadow 0.2s, border 0.2s, background 0.2s, color 0.2s;
+  outline: none;
+  appearance: none;
 }
 
+/* Hide number input arrows for Chrome, Safari, Edge */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide number input arrows for Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Focus effect */
 input[type="number"]:focus,
 input[type="text"]:focus {
-  outline: none;
-  box-shadow: 0 0 0 2px #f1c40f;
-  border: 1.5px solid #e67e22;
+  background: #fffbe6;
+  color: #232526;
+  box-shadow: 0 0 0 3px #e67e22;
+  border: 2px solid #e67e22;
+}
+
+/* Error state for invalid input */
+input[type="number"].error,
+input[type="text"].error {
+  border: 2px solid #e74c3c;
+  background: #ffeaea;
+  color: #e74c3c;
 }
 
 button[type="submit"],
@@ -133,7 +163,6 @@ button[type="button"]:hover {
 }
 
 .GamePage {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -153,7 +182,6 @@ button[type="button"]:hover {
 }
 
 .GamePage .table-wrapper {
-  width: 100%;
   max-width: 900px;
   overflow-x: auto;
   margin-top: 1rem;
@@ -165,9 +193,7 @@ button[type="button"]:hover {
   border-collapse: collapse;
   background: #232526;
   border-radius: 1rem;
-  overflow: hidden;
   table-layout: fixed;
-  margin-bottom: 0;
 }
 
 .GamePage th,
@@ -254,6 +280,6 @@ button[type="button"]:hover {
   background: #232526;
 }
 ::-webkit-scrollbar-thumb {
-  background: #f1c40f;
+  background: #6b6a68ff;
   border-radius: 4px;
 }
