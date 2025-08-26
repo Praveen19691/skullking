@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -8,61 +9,44 @@ function calculateBaseScore(bid, tricksWon, round) {
   round = Number(round);
 
   if (bid === 0) {
-    // Zero bid
-    if (tricksWon === 0) {
-      return round * 10;
-    } else {
-      return round * -10;
-    }
+    return tricksWon === 0 ? round * 10 : round * -10;
   } else {
-    // Non-zero bid
-    if (bid === tricksWon) {
-      return bid * 20;
-    } else {
-      return Math.abs(bid - tricksWon) * -10;
-    }
+    return bid === tricksWon ? bid * 20 : Math.abs(bid - tricksWon) * -10;
   }
 }
-
-const TOTAL_ROUNDS = 10;
 
 function GamePage() {
   const location = useLocation();
   const playerCount = location.state?.playerCount || 2;
+  const TOTAL_ROUNDS = Math.max(2, Math.min(10, location.state?.roundCount || 2));
 
   const [playerNames, setPlayerNames] = useState(Array(playerCount).fill(""));
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [currentRound, setCurrentRound] = useState(1);
 
-  // Each round: bids[player][round], tricksWon[player][round], scores[player][round]
-  const [bids, setBids] = useState(
-    Array(playerCount)
-      .fill(0)
-      .map(() => Array(TOTAL_ROUNDS).fill("")) // Initialize bids for all players and rounds
-  );
-  const [tricksWon, setTricksWon] = useState(
-    Array(playerCount)
-      .fill(0)
-      .map(() => Array(TOTAL_ROUNDS).fill("")) // Initialize tricksWon for all players and rounds
-  );
-  const [scores, setScores] = useState(
-    Array(playerCount)
-      .fill(0)
-      .map(() => Array(TOTAL_ROUNDS).fill(0)) // Initialize scores for all players and rounds
-  );
+  const [bids, setBids] = useState(Array(playerCount).fill().map(() => Array(TOTAL_ROUNDS).fill("0")));
+  const [tricksWon, setTricksWon] = useState(Array(playerCount).fill().map(() => Array(TOTAL_ROUNDS).fill("0")));
+  const [scores, setScores] = useState(Array(playerCount).fill().map(() => Array(TOTAL_ROUNDS).fill(0)));
   const [biddingDone, setBiddingDone] = useState(false);
   const [scoreDone, setScoreDone] = useState(false);
-  const [tricksError, setTricksError] = useState(""); // Add error state for tricks
+  const [tricksError, setTricksError] = useState("");
 
-  // For winner display
   const [gameFinished, setGameFinished] = useState(false);
+  const [invalidNames, setInvalidNames] = useState(Array(playerCount).fill(false));
+  const [bidInputErrors, setBidInputErrors] = useState(Array(playerCount).fill(false));
+  const [tricksInputErrors, setTricksInputErrors] = useState(Array(playerCount).fill(false));
 
   const handleNameChange = (index, value) => {
     const updatedNames = [...playerNames];
     updatedNames[index] = value;
     setPlayerNames(updatedNames);
-    setError(""); // Clear error on change
+
+    const updatedInvalids = [...invalidNames];
+    updatedInvalids[index] = value.trim().length < 3;
+    setInvalidNames(updatedInvalids);
+
+    setError("");
   };
 
   const handleSubmitNames = (e) => {
@@ -73,39 +57,68 @@ function GamePage() {
       setError("Player names must be unique.");
       return;
     }
+    if (trimmedNames.some((n) => n.length < 3)) {
+      setError("Each player name must be at least 3 characters.");
+      return;
+    }
     setSubmitted(true);
   };
 
   const handleBidChange = (playerIdx, value) => {
-    const val =
-      value === "" ? "" : Math.max(0, Math.min(currentRound, Number(value)));
+    let val = value;
+    let error = false;
+    if (val === "") {
+      error = false;
+    } else if (!/^\d+$/.test(val)) {
+      error = true;
+    } else {
+      val = Math.max(0, Math.min(currentRound, Number(val)));
+      error = false;
+    }
     const updatedBids = bids.map((arr, idx) =>
       idx === playerIdx
         ? arr.map((v, rIdx) => (rIdx === currentRound - 1 ? val : v))
         : arr
     );
     setBids(updatedBids);
+
+    const updatedErrors = [...bidInputErrors];
+    updatedErrors[playerIdx] = error;
+    setBidInputErrors(updatedErrors);
   };
 
   const handleBiddingSubmit = (e) => {
     e.preventDefault();
+    if (bidInputErrors.some(Boolean)) return;
     setBiddingDone(true);
   };
 
   const handleTricksWonChange = (playerIdx, value) => {
-    const val =
-      value === "" ? "" : Math.max(0, Math.min(currentRound, Number(value)));
+    let val = value;
+    let error = false;
+    if (val === "") {
+      error = false;
+    } else if (!/^\d+$/.test(val)) {
+      error = true;
+    } else {
+      val = Math.max(0, Math.min(currentRound, Number(val)));
+      error = false;
+    }
     const updatedTricks = tricksWon.map((arr, idx) =>
       idx === playerIdx
         ? arr.map((v, rIdx) => (rIdx === currentRound - 1 ? val : v))
         : arr
     );
     setTricksWon(updatedTricks);
+
+    const updatedErrors = [...tricksInputErrors];
+    updatedErrors[playerIdx] = error;
+    setTricksInputErrors(updatedErrors);
   };
 
   const handleScoreSubmit = (e) => {
     e.preventDefault();
-    // Validate total tricks for this round
+    if (tricksInputErrors.some(Boolean)) return;
     const totalTricks = tricksWon.reduce(
       (sum, arr) => sum + Number(arr[currentRound - 1]),
       0
@@ -117,7 +130,6 @@ function GamePage() {
       return;
     }
     setTricksError("");
-    // Calculate scores for this round
     const updatedScores = scores.map((arr, idx) =>
       arr.map((v, rIdx) =>
         rIdx === currentRound - 1
@@ -144,14 +156,31 @@ function GamePage() {
     }
   };
 
-  // Calculate total scores
   const totalScores = scores.map((arr) =>
     arr.reduce((sum, v) => sum + Number(v), 0)
   );
 
-  // Find winner(s)
   const maxScore = Math.max(...totalScores);
   const winners = playerNames.filter((_, idx) => totalScores[idx] === maxScore);
+
+  // DENSE RANKING LOGIC
+  const getDenseRanks = (scoresArr) => {
+    let sorted = scoresArr
+      .map((score, idx) => ({ idx, score }))
+      .sort((a, b) => b.score - a.score);
+    let ranks = Array(scoresArr.length);
+    let rank = 1;
+    sorted.forEach((player, i) => {
+      if (i > 0 && player.score === sorted[i - 1].score) {
+        ranks[player.idx] = ranks[sorted[i - 1].idx];
+      } else {
+        ranks[player.idx] = rank;
+      }
+      rank++;
+    });
+    return ranks;
+  };
+  const denseRanks = getDenseRanks(totalScores);
 
   return (
     <div className="GamePage">
@@ -174,9 +203,20 @@ function GamePage() {
                     value={name}
                     onChange={(e) => handleNameChange(idx, e.target.value)}
                     required
-                    style={{ marginLeft: "1rem" }}
+                    style={{
+                      marginLeft: "1rem",
+                      border: invalidNames[idx]
+                        ? "2px solid #e74c3c"
+                        : undefined,
+                      background: invalidNames[idx] ? "#ffeaea" : undefined,
+                    }}
                   />
                 </label>
+                {invalidNames[idx] && (
+                  <span style={{ color: "#e74c3c", fontSize: "0.95rem" }}>
+                    Name must be at least 3 characters
+                  </span>
+                )}
               </div>
             ))}
             {error && (
@@ -195,7 +235,7 @@ function GamePage() {
         </div>
       ) : gameFinished ? (
         <div className="card">
-          <h3>Final Scores & Rankings</h3>
+          <h3>Rankings</h3>
           <div className="table-wrapper">
             <table>
               <thead>
@@ -203,6 +243,7 @@ function GamePage() {
                   <th>Rank</th>
                   <th>Player</th>
                   <th>Score</th>
+                  <th>Medal</th>
                 </tr>
               </thead>
               <tbody>
@@ -210,25 +251,111 @@ function GamePage() {
                   .map((name, idx) => ({
                     name,
                     score: totalScores[idx],
+                    rank: denseRanks[idx],
                   }))
                   .sort((a, b) => b.score - a.score)
-                  .map((player, idx, arr) => {
-                    // Handle ties: same score, same rank
-                    const prevScore = idx > 0 ? arr[idx - 1].score : null;
-                    const rank = prevScore === player.score ? idx : idx + 1;
+                  .map((player) => {
+                    let medal = "";
+                    if (player.rank === 1) medal = "🥇 GOLD";
+                    else if (player.rank === 2) medal = "🥈 SILVER";
+                    else if (player.rank === 3) medal = "🥉 BRONZE";
                     return (
                       <tr key={player.name}>
-                        <td>{rank}</td>
+                        <td>{player.rank}</td>
                         <td>{player.name}</td>
                         <td>{player.score}</td>
+                        <td>
+                          {player.rank === 1 && (
+                            <span
+                              style={{
+                                fontSize: "2rem",
+                                fontWeight: "bold",
+                                background:
+                                  "linear-gradient(90deg, #FFD700 0%, #fdec4eff 100%)",
+                                color: "#B8860B",
+                                borderRadius: "1.5rem",
+                                padding: "0.3rem 1.2rem",
+                                boxShadow: "0 2px 8px #FFD70088",
+                                display: "inline-block",
+                              }}
+                            >
+                              🥇
+                            </span>
+                          )}
+                          {player.rank === 2 && (
+                            <span
+                              style={{
+                                fontSize: "2rem",
+                                fontWeight: "bold",
+                                background:
+                                  "linear-gradient(90deg, #b8b8b8ff 0%, #F5F5F5 100%)",
+                                color: "#6e6e6e",
+                                borderRadius: "1.5rem",
+                                padding: "0.3rem 1.2rem",
+                                boxShadow: "0 2px 8px #C0C0C088",
+                                display: "inline-block",
+                              }}
+                            >
+                              🥈
+                            </span>
+                          )}
+                          {player.rank === 3 && (
+                            <span
+                              style={{
+                                fontSize: "2rem",
+                                fontWeight: "bold",
+                                background:
+                                  "linear-gradient(90deg, #634221ff 0%, #b1611cff 100%)",
+                                color: "#97480fff",
+                                borderRadius: "1.5rem",
+                                padding: "0.3rem 1.2rem",
+                                boxShadow: "0 2px 8px #CD7F3288",
+                                display: "inline-block",
+                              }}
+                            >
+                              🥉
+                            </span>
+                          )}
+                        </td>
                       </tr>
                     );
                   })}
               </tbody>
             </table>
           </div>
-          <div className="winner-highlight">
-            Winner{winners.length > 1 ? "s" : ""}: {winners.join(", ")}
+          <div
+            className="winner-highlight"
+            style={{
+              background: "linear-gradient(90deg, #22f10fff 0%, #c2ff5fff 100%)",
+              color: "#232526",
+              fontSize: "2rem",
+              fontWeight: "bold",
+              borderRadius: "2rem",
+              padding: "2rem 3rem",
+              marginTop: "2rem",
+              boxShadow: "0 8px 32px 0 rgba(241,196,15,0.25)",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "1.5rem",
+            }}
+          >
+            <span role="img" aria-label="trophy" style={{ fontSize: "2.5rem" }}>
+              🏆
+            </span>
+            <span>
+              Winner{winners.length > 1 ? "s" : ""}:{" "}
+              <span
+                style={{
+                  color: "#232526",
+                  fontWeight: "900",
+                  borderRadius: "0.5rem",
+                  padding: "0.2rem 0.7rem",
+                }}
+              >
+                {winners.join(", ")}
+              </span>
+            </span>
           </div>
         </div>
       ) : (
@@ -251,7 +378,7 @@ function GamePage() {
                         {playerNames.map((_, idx) => (
                           <td key={idx}>
                             <input
-                              type="number"
+                              type="text"
                               min={0}
                               max={currentRound}
                               value={bids[idx][currentRound - 1]}
@@ -259,14 +386,34 @@ function GamePage() {
                                 handleBidChange(idx, e.target.value)
                               }
                               required
+                              className={bidInputErrors[idx] ? "error" : ""}
                               style={{
                                 width: "60px",
                                 padding: "0.3rem",
                                 borderRadius: "0.5rem",
-                                border: "1px solid #f1c40f",
+                                border: bidInputErrors[idx]
+                                  ? "2px solid #e74c3c"
+                                  : "1px solid #f1c40f",
                                 textAlign: "center",
+                                background: bidInputErrors[idx]
+                                  ? "#ffeaea"
+                                  : undefined,
+                                color: bidInputErrors[idx]
+                                  ? "#e74c3c"
+                                  : undefined,
                               }}
                             />
+                            {bidInputErrors[idx] && (
+                              <div
+                                style={{
+                                  color: "#e74c3c",
+                                  fontSize: "0.9rem",
+                                  marginTop: "0.3rem",
+                                }}
+                              >
+                                Enter a valid number
+                              </div>
+                            )}
                             <div
                               style={{
                                 fontSize: "0.9rem",
@@ -305,7 +452,7 @@ function GamePage() {
                         {playerNames.map((_, idx) => (
                           <td key={idx}>
                             <input
-                              type="number"
+                              type="text"
                               min={0}
                               max={currentRound}
                               value={tricksWon[idx][currentRound - 1]}
@@ -313,14 +460,34 @@ function GamePage() {
                                 handleTricksWonChange(idx, e.target.value)
                               }
                               required
+                              className={tricksInputErrors[idx] ? "error" : ""}
                               style={{
                                 width: "60px",
                                 padding: "0.3rem",
                                 borderRadius: "0.5rem",
-                                border: "1px solid #f1c40f",
+                                border: tricksInputErrors[idx]
+                                  ? "2px solid #e74c3c"
+                                  : "1px solid #f1c40f",
                                 textAlign: "center",
+                                background: tricksInputErrors[idx]
+                                  ? "#ffeaea"
+                                  : undefined,
+                                color: tricksInputErrors[idx]
+                                  ? "#e74c3c"
+                                  : undefined,
                               }}
                             />
+                            {tricksInputErrors[idx] && (
+                              <div
+                                style={{
+                                  color: "#e74c3c",
+                                  fontSize: "0.9rem",
+                                  marginTop: "0.3rem",
+                                }}
+                              >
+                                Enter a valid number
+                              </div>
+                            )}
                             <div
                               style={{
                                 fontSize: "0.9rem",
@@ -374,7 +541,6 @@ function GamePage() {
               </button>
             </div>
           )}
-          {/* Score Table always visible below */}
           <div className="card">
             <h3 style={{ marginTop: "2rem" }}>Point Table</h3>
             <div className="table-wrapper">
@@ -396,7 +562,6 @@ function GamePage() {
                       ))}
                     </tr>
                   ))}
-                  {/* Totals row */}
                   <tr>
                     <td>
                       <strong>Total</strong>
