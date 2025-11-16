@@ -3,6 +3,7 @@ import TricksForm from "../components/TricksForm/TricksForm";
 import RoundScores from "../components/RoundScores/RoundScores";
 import PointTable from "../components/PointTable/PointTable";
 import BiddingTricksTable from "../components/BiddingTricksTable/BiddingTricksTable";
+import FinalRankings from "../components/FinalRankings/FinalRankings";
 
 /**
  * Custom hook to generate tab configuration for the game interface
@@ -24,6 +25,9 @@ export function useGameTabs({
   tricksError,
   biddingDone,
   scoreDone,
+  gameFinished,
+  winners,
+  denseRanks,
   onBidChange,
   onBidFocus,
   onBiddingSubmit,
@@ -77,7 +81,7 @@ export function useGameTabs({
     );
   };
 
-  return [
+  const tabs = [
     {
       id: "game",
       label: "Current Round",
@@ -85,13 +89,15 @@ export function useGameTabs({
     },
     {
       id: "history",
-      label: "Bidding & Tricks History",
+      label: "Detailed View",
       content: (
         <BiddingTricksTable
           playerNames={playerNames}
           currentRound={currentRound}
           bids={bids}
           tricksWon={tricksWon}
+          scores={scores}
+          totalScores={totalScores}
         />
       ),
     },
@@ -108,4 +114,22 @@ export function useGameTabs({
       ),
     },
   ];
+
+  // Add Final Results tab when game is finished
+  if (gameFinished) {
+    tabs.push({
+      id: "results",
+      label: "🏆 Final Results",
+      content: (
+        <FinalRankings
+          playerNames={playerNames}
+          totalScores={totalScores}
+          denseRanks={denseRanks}
+          winners={winners}
+        />
+      ),
+    });
+  }
+
+  return tabs;
 }

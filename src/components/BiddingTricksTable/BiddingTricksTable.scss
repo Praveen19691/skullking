@@ -1,18 +1,92 @@
 .bidding-tricks-table {
+  // Player color scheme - 10 distinct colors matching dark theme
+  $player-colors: (
+    0: (
+      #f1c40f,
+      rgba(241, 196, 15, 0.12),
+    ),
+    // Gold
+    1:
+      (
+        #3498db,
+        rgba(52, 152, 219, 0.12),
+      ),
+    // Blue
+    2:
+      (
+        #e74c3c,
+        rgba(231, 76, 60, 0.12),
+      ),
+    // Red
+    3:
+      (
+        #2ecc71,
+        rgba(46, 204, 113, 0.12),
+      ),
+    // Green
+    4:
+      (
+        #9b59b6,
+        rgba(155, 89, 182, 0.12),
+      ),
+    // Purple
+    5:
+      (
+        #e67e22,
+        rgba(230, 126, 34, 0.12),
+      ),
+    // Orange
+    6:
+      (
+        #1abc9c,
+        rgba(26, 188, 156, 0.12),
+      ),
+    // Turquoise
+    7:
+      (
+        #f39c12,
+        rgba(243, 156, 18, 0.12),
+      ),
+    // Dark Yellow
+    8:
+      (
+        #95a5a6,
+        rgba(149, 165, 166, 0.12),
+      ),
+    // Gray
+    9:
+      (
+        #e91e63,
+        rgba(233, 30, 99, 0.12),
+      )
+      // Pink,,,,,,,
+  );
+
   .player-header {
     background: #232526;
-    color: #f1c40f;
     font-weight: 700;
     border-bottom: none;
     padding: 0.8rem 0.4rem;
+
+    @each $index, $colors in $player-colors {
+      &.player-#{$index} {
+        color: nth($colors, 1);
+      }
+    }
   }
 
   .sub-header {
     background: #2c2c2c;
-    color: #e67e22;
     font-weight: 600;
     font-size: 0.85rem;
     padding: 0.5rem 0.2rem;
+
+    @each $index, $colors in $player-colors {
+      &.player-#{$index} {
+        color: nth($colors, 1);
+        background: nth($colors, 2);
+      }
+    }
   }
 
   .round-cell {
@@ -21,23 +95,51 @@
     font-weight: 700;
   }
 
-  .bid-cell {
-    background: rgba(241, 196, 15, 0.1);
-    color: #f1c40f;
+  .bid-cell,
+  .tricks-cell,
+  .score-cell {
     font-weight: 600;
+
+    @each $index, $colors in $player-colors {
+      &.player-#{$index} {
+        background: nth($colors, 2);
+        color: nth($colors, 1);
+      }
+    }
   }
 
-  .tricks-cell {
-    background: rgba(230, 126, 34, 0.1);
-    color: #e67e22;
-    font-weight: 600;
+  .score-cell {
+    font-weight: 700;
+  }
+
+  .total-row {
+    border-top: 3px solid #444;
+    background: rgba(241, 196, 15, 0.05);
+
+    .total-cell {
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.8rem 0.2rem;
+
+      @each $index, $colors in $player-colors {
+        &.player-#{$index} {
+          background: nth($colors, 2);
+          color: nth($colors, 1);
+          border: 1px solid #444;
+        }
+      }
+    }
   }
 
   table {
+    border-collapse: collapse;
+    border: 2px solid #444;
+
     th,
     td {
       text-align: center;
       padding: 0.5rem 0.2rem;
+      border: 1px solid #444;
     }
   }
 }

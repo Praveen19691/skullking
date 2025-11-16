@@ -37,29 +37,51 @@ function FinalRankings({ playerNames, totalScores, denseRanks, winners }) {
           </thead>
           <tbody>
             {/* Display each player's final standing */}
-            {sortedPlayers.map((player) => (
-              <tr key={player.name}>
-                <td>{player.rank}</td>
-                <td>{player.name}</td>
-                <td>{player.score}</td>
-                <td>
-                  {/* Show medal for top 3 ranks */}
-                  <MedalBadge rank={player.rank} />
-                </td>
-              </tr>
-            ))}
+            {sortedPlayers.map((player) => {
+              // Check if this player is a winner
+              const isWinner = winners.includes(player.name);
+
+              return (
+                <tr key={player.name} className={isWinner ? "winner-row" : ""}>
+                  <td>{player.rank}</td>
+                  <td>
+                    {player.name}
+                    {/* Add crown emoji next to winner name */}
+                    {isWinner && (
+                      <span className="crown" role="img" aria-label="crown">
+                        👑
+                      </span>
+                    )}
+                  </td>
+                  <td>{player.score}</td>
+                  <td>
+                    {/* Show medal for top 3 ranks */}
+                    <MedalBadge rank={player.rank} />
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
-      {/* Winner announcement with trophy */}
+      {/* Winner announcement with trophy and special effects */}
       <div className="winner-highlight">
-        <span className="trophy" role="img" aria-label="trophy">
+        <span className="confetti left" role="img" aria-label="confetti">
+          🎉
+        </span>
+        <span className="trophy bounce" role="img" aria-label="trophy">
           🏆
         </span>
         <span className="winner-text">
           {/* Handle singular vs plural winner text */}
-          Winner{winners.length > 1 ? "s" : ""}:{" "}
+          <span className="label">Winner{winners.length > 1 ? "s" : ""}:</span>
           <span className="winner-names">{winners.join(", ")}</span>
+        </span>
+        <span className="trophy bounce" role="img" aria-label="trophy">
+          🏆
+        </span>
+        <span className="confetti right" role="img" aria-label="confetti">
+          🎉
         </span>
       </div>
     </div>

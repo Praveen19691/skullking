@@ -9,8 +9,6 @@ import {
   isValidNumber,
 } from "./utils/scoring";
 import PlayerNameForm from "./components/PlayerNameForm/PlayerNameForm";
-import FinalRankings from "./components/FinalRankings/FinalRankings";
-import FinalPointTable from "./components/FinalPointTable/FinalPointTable";
 import Tabs from "./components/Tabs/Tabs";
 
 /**
@@ -240,6 +238,7 @@ function GamePage() {
       setTricksError("");
     } else {
       setGameFinished(true);
+      setActiveTab("results"); // Switch to Final Results tab
     }
   };
 
@@ -267,6 +266,9 @@ function GamePage() {
     tricksError,
     biddingDone,
     scoreDone,
+    gameFinished,
+    winners,
+    denseRanks,
     onBidChange: handleBidChange,
     onBidFocus: handleBidFocus,
     onBiddingSubmit: handleBiddingSubmit,
@@ -292,21 +294,6 @@ function GamePage() {
           onNameChange={handleNameChange}
           onSubmit={handleSubmitNames}
         />
-      ) : gameFinished ? (
-        <>
-          <FinalRankings
-            playerNames={playerNames}
-            totalScores={totalScores}
-            denseRanks={denseRanks}
-            winners={winners}
-          />
-          <FinalPointTable
-            playerNames={playerNames}
-            scores={scores}
-            totalScores={totalScores}
-            totalRounds={TOTAL_ROUNDS}
-          />
-        </>
       ) : (
         <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
       )}
