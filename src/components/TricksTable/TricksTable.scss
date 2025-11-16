@@ -6,10 +6,12 @@
 
   td {
     font-weight: 600;
-    color: #22f10f;
+    color: var(--success-color);
+    transition: color 0.3s ease;
   }
 
   tbody tr:hover {
-    background: rgba(34, 241, 15, 0.08);
+    background: var(--success-bg);
+    transition: background 0.3s ease;
   }
 }

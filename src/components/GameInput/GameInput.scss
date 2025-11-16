@@ -11,10 +11,10 @@
   max-width: 70px;
   padding: 0.6rem 0.4rem;
   border-radius: 0.8rem;
-  border: 2px solid #f1c40f;
+  border: 2px solid var(--input-border);
   text-align: center;
-  background: #232526;
-  color: #f1c40f;
+  background: var(--input-bg);
+  color: var(--input-text);
   font-size: 1.1rem;
   font-weight: 600;
   transition: all 0.2s ease;

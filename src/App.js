@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import PlayerForm from "./PlayerForm";
 import GamePage from "./GamePage";
+import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
 import "./App.scss";
 
 /**
@@ -24,8 +25,25 @@ function NotFound() {
  * - * : 404 page
  */
 function App() {
+  // Initialize theme from localStorage or default to dark mode
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem("theme");
+    return savedTheme ? savedTheme === "dark" : true;
+  });
+
+  // Apply theme class to body element
+  useEffect(() => {
+    document.body.className = isDarkMode ? "dark-theme" : "light-theme";
+    localStorage.setItem("theme", isDarkMode ? "dark" : "light");
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   return (
     <div className="App">
+      <ThemeToggle isDarkMode={isDarkMode} onToggle={toggleTheme} />
       <header className="App-header">
         <Routes>
           <Route path="/" element={<PlayerForm />} />

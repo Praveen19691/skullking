@@ -3,8 +3,9 @@
     width: 60px;
     padding: 0.3rem;
     border-radius: 0.5rem;
-    border: 1px solid #f1c40f;
+    border: 1px solid var(--input-border);
     text-align: center;
+    transition: border-color 0.3s ease;
 
     &.error {
       border: 2px solid #e74c3c;
@@ -21,8 +22,9 @@
 
   .hint-text {
     font-size: 0.9rem;
-    color: #f1c40f;
+    color: var(--text-secondary);
     margin-top: 0.3rem;
+    transition: color 0.3s ease;
   }
 
   .submit-btn {

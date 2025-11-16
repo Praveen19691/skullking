@@ -8,19 +8,23 @@
     font-weight: 600;
 
     &.highlight-yellow {
-      color: #fdec4e;
+      color: var(--warning-color);
+      transition: color 0.3s ease;
     }
 
     &.highlight-green {
-      color: #22f10f;
+      color: var(--success-color);
+      transition: color 0.3s ease;
     }
 
     &.highlight-orange {
-      color: #e67e22;
+      color: var(--text-accent);
+      transition: color 0.3s ease;
     }
   }
 
   tbody tr:hover {
-    background: rgba(241, 196, 15, 0.08);
+    background: var(--highlight-bg);
+    transition: background 0.3s ease;
   }
 }

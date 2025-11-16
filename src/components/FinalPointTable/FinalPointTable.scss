@@ -1,7 +1,8 @@
 .final-point-table {
   .final-total-row {
-    background: #f1c40f;
-    color: #232526;
+    background: var(--text-secondary);
+    color: var(--bg-gradient-start);
     font-weight: bold;
+    transition: background 0.3s ease, color 0.3s ease;
   }
 }

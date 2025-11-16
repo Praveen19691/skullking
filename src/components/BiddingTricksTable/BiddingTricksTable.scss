@@ -1,72 +1,74 @@
 .bidding-tricks-table {
   // Player color scheme - Alternating 2 colors for better readability
+  // Now using CSS variables that adapt to theme
   $player-colors: (
     0: (
-      #f1c40f,
-      rgba(241, 196, 15, 0.12),
+      var(--player-color-light),
+      var(--player-bg-light),
     ),
-    // Gold (even players - theme color)
+    // Light gold (even players)
     1:
       (
-        #c87f0a,
-        rgba(200, 127, 10, 0.12),
+        var(--player-color-dark),
+        var(--player-bg-dark),
       ),
     // Darker gold (odd players)
     2:
       (
-        #f1c40f,
-        rgba(241, 196, 15, 0.12),
+        var(--player-color-light),
+        var(--player-bg-light),
       ),
-    // Gold
+    // Light gold
     3:
       (
-        #c87f0a,
-        rgba(200, 127, 10, 0.12),
+        var(--player-color-dark),
+        var(--player-bg-dark),
       ),
     // Darker gold
     4:
       (
-        #f1c40f,
-        rgba(241, 196, 15, 0.12),
+        var(--player-color-light),
+        var(--player-bg-light),
       ),
-    // Gold
+    // Light gold
     5:
       (
-        #c87f0a,
-        rgba(200, 127, 10, 0.12),
+        var(--player-color-dark),
+        var(--player-bg-dark),
       ),
     // Darker gold
     6:
       (
-        #f1c40f,
-        rgba(241, 196, 15, 0.12),
+        var(--player-color-light),
+        var(--player-bg-light),
       ),
-    // Gold
+    // Light gold
     7:
       (
-        #c87f0a,
-        rgba(200, 127, 10, 0.12),
+        var(--player-color-dark),
+        var(--player-bg-dark),
       ),
     // Darker gold
     8:
       (
-        #f1c40f,
-        rgba(241, 196, 15, 0.12),
+        var(--player-color-light),
+        var(--player-bg-light),
       ),
-    // Gold
+    // Light gold
     9:
       (
-        #c87f0a,
-        rgba(200, 127, 10, 0.12),
+        var(--player-color-dark),
+        var(--player-bg-dark),
       )
-      // Darker gold,,,
+      // Darker gold,
   );
 
   .player-header {
-    background: #232526;
+    background: var(--table-bg);
     font-weight: 700;
     border-bottom: none;
     padding: 0.8rem 0.4rem;
+    transition: background 0.3s ease;
 
     @each $index, $colors in $player-colors {
       &.player-#{$index} {
@@ -76,10 +78,11 @@
   }
 
   .sub-header {
-    background: #2c2c2c;
+    background: var(--table-cell-bg);
     font-weight: 600;
     font-size: 0.85rem;
     padding: 0.5rem 0.2rem;
+    transition: background 0.3s ease;
 
     @each $index, $colors in $player-colors {
       &.player-#{$index} {
@@ -90,9 +93,10 @@
   }
 
   .round-cell {
-    background: #232526;
-    color: #f1c40f;
+    background: var(--table-bg);
+    color: var(--text-secondary);
     font-weight: 700;
+    transition: background 0.3s ease, color 0.3s ease;
   }
 
   .bid-cell,

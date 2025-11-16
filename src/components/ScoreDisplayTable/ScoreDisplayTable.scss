@@ -10,6 +10,7 @@
   td {
     font-size: 1.2rem;
     font-weight: 700;
-    color: #f1c40f;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
   }
 }

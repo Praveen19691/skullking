@@ -7,10 +7,11 @@
 .tabs-header {
   display: flex;
   gap: 0.5rem;
-  border-bottom: 2px solid #f1c40f;
+  border-bottom: 2px solid var(--table-border);
   margin-bottom: 1.5rem;
   overflow-x: auto;
   overflow-y: hidden;
+  transition: border-color 0.3s ease;
 }
 
 .tab-button {
@@ -18,7 +19,7 @@
   background: transparent;
   border: none;
   border-bottom: 3px solid transparent;
-  color: #f1c40f;
+  color: var(--text-secondary);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -27,13 +28,15 @@
 
   &:hover {
     background: rgba(241, 196, 15, 0.1);
-    color: #fdec4e;
+    color: var(--text-secondary);
+    filter: brightness(1.2);
   }
 
   &.active {
-    border-bottom-color: #f1c40f;
-    color: #fdec4e;
+    border-bottom-color: var(--text-secondary);
+    color: var(--text-secondary);
     background: rgba(241, 196, 15, 0.15);
+    filter: brightness(1.1);
   }
 }
 

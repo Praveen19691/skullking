@@ -1,10 +1,86 @@
+// CSS Variables for theming
+:root {
+  // Dark theme colors (default)
+  --bg-gradient-start: #232526;
+  --bg-gradient-end: #414345;
+  --text-primary: #fff;
+  --text-secondary: #f1c40f;
+  --text-accent: #e67e22;
+  --card-bg: rgba(80, 69, 44, 0.98);
+  --input-bg: #232526;
+  --input-text: #f1c40f;
+  --input-border: #f1c40f;
+  --input-focus-bg: #fffbe6;
+  --input-focus-text: #232526;
+  --input-focus-border: #e67e22;
+  --table-bg: #232526;
+  --table-cell-bg: #414345;
+  --table-border: #f1c40f;
+  --theme-border: #f1c40f;
+  --theme-button-bg: rgba(80, 69, 44, 0.95);
+  --theme-button-text: #f1c40f;
+  --theme-button-hover-bg: rgba(100, 89, 64, 0.95);
+  --theme-shadow: rgba(241, 196, 15, 0.2);
+  --theme-shadow-hover: rgba(241, 196, 15, 0.3);
+  --scrollbar-bg: #232526;
+  --scrollbar-thumb: #6b6a68ff;
+  --success-color: #22f10f;
+  --warning-color: #fdec4e;
+  --success-bg: rgba(34, 241, 15, 0.08);
+  --highlight-bg: rgba(241, 196, 15, 0.08);
+  --player-color-light: #f1c40f;
+  --player-color-dark: #c87f0a;
+  --player-bg-light: rgba(241, 196, 15, 0.12);
+  --player-bg-dark: rgba(200, 127, 10, 0.12);
+}
+
+// Light theme colors
+.light-theme {
+  --bg-gradient-start: #f5f7fa;
+  --bg-gradient-end: #c3cfe2;
+  --text-primary: #1a252f;
+  --text-secondary: #8b6914;
+  --text-accent: #c0571b;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --input-bg: #ffffff;
+  --input-text: #1a252f;
+  --input-border: #8b6914;
+  --input-focus-bg: #fff8dc;
+  --input-focus-text: #1a252f;
+  --input-focus-border: #c0571b;
+  --table-bg: #ffffff;
+  --table-cell-bg: #f8f9fa;
+  --table-border: #8b6914;
+  --theme-border: #8b6914;
+  --theme-button-bg: rgba(255, 255, 255, 0.95);
+  --theme-button-text: #8b6914;
+  --theme-button-hover-bg: rgba(255, 248, 220, 0.95);
+  --theme-shadow: rgba(139, 105, 20, 0.25);
+  --theme-shadow-hover: rgba(139, 105, 20, 0.35);
+  --scrollbar-bg: #e0e0e0;
+  --scrollbar-thumb: #b0b0b0;
+  --success-color: #1e7e34;
+  --warning-color: #8b6914;
+  --success-bg: rgba(30, 126, 52, 0.1);
+  --highlight-bg: rgba(139, 105, 20, 0.1);
+  --player-color-light: #8b6914;
+  --player-color-dark: #6b4f0a;
+  --player-bg-light: rgba(139, 105, 20, 0.18);
+  --player-bg-dark: rgba(107, 79, 10, 0.18);
+}
+
 body {
   margin: 0;
   min-height: 100vh;
   box-sizing: border-box;
   font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
-  background: linear-gradient(135deg, #232526 0%, #414345 100%);
-  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--bg-gradient-start) 0%,
+    var(--bg-gradient-end) 100%
+  );
+  color: var(--text-primary);
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .App {
@@ -25,45 +101,53 @@ body {
 .App-header {
   width: 100%;
   min-height: 100vh;
-  background: linear-gradient(135deg, #232526 0%, #414345 100%);
-  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--bg-gradient-start) 0%,
+    var(--bg-gradient-end) 100%
+  );
+  color: var(--text-primary);
   font-family: "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   padding-top: 2rem;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .header-title {
   font-size: 2.8rem;
   font-weight: bold;
   letter-spacing: 0.08em;
-  color: #f1c40f;
+  color: var(--text-secondary);
   margin-bottom: 0.5rem;
-  text-shadow: 2px 2px 8px #232526;
+  text-shadow: 2px 2px 8px var(--bg-gradient-start);
+  transition: color 0.3s ease;
 }
 
 .page-heading {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #f1c40f;
+  color: var(--text-secondary);
   margin-bottom: 2rem;
   text-align: center;
   letter-spacing: 0.05em;
-  text-shadow: 2px 2px 8px #232526;
+  text-shadow: 2px 2px 8px var(--bg-gradient-start);
+  transition: color 0.3s ease;
 }
 
 .round-indicator {
   font-size: 1.5rem;
-  color: #e67e22;
+  color: var(--text-accent);
   margin-bottom: 1.5rem;
   font-weight: 600;
   letter-spacing: 0.05em;
+  transition: color 0.3s ease;
 }
 
 .card {
-  background: rgba(80, 69, 44, 0.98);
+  background: var(--card-bg);
   border-radius: 2rem;
   box-shadow: 0 12px 36px 0 rgba(31, 38, 135, 0.37);
   padding: 1.5rem 1rem;
@@ -71,6 +155,7 @@ body {
   max-width: 1400px;
   animation: fadeIn 0.9s;
   width: 98%;
+  transition: background 0.3s ease;
 }
 
 form {
@@ -85,12 +170,13 @@ form {
 label {
   font-size: 1.3rem;
   font-weight: 600;
-  color: #f1c40f;
+  color: var(--text-secondary);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.7rem;
   letter-spacing: 0.03em;
+  transition: color 0.3s ease;
 }
 
 input[type="number"],
@@ -98,12 +184,12 @@ input[type="text"] {
   width: 220px;
   padding: 0.9rem 1.2rem;
   border-radius: 1.5rem;
-  border: 2px solid #f1c40f;
+  border: 2px solid var(--input-border);
   font-size: 1.15rem;
   font-weight: 700;
-  background: #232526;
-  color: #f1c40f;
-  box-shadow: 0 2px 12px rgba(241, 196, 15, 0.12);
+  background: var(--input-bg);
+  color: var(--input-text);
+  box-shadow: 0 2px 12px var(--theme-shadow);
   transition: box-shadow 0.2s, border 0.2s, background 0.2s, color 0.2s;
   outline: none;
   appearance: none;
@@ -125,10 +211,10 @@ input[type="number"] {
 /* Focus effect */
 input[type="number"]:focus,
 input[type="text"]:focus {
-  background: #fffbe6;
-  color: #232526;
-  box-shadow: 0 0 0 3px #e67e22;
-  border: 2px solid #e67e22;
+  background: var(--input-focus-bg);
+  color: var(--input-focus-text);
+  box-shadow: 0 0 0 3px var(--input-focus-border);
+  border: 2px solid var(--input-focus-border);
 }
 
 /* Error state for invalid input */
@@ -144,22 +230,30 @@ button[type="button"] {
   padding: 0.9rem 2.5rem;
   border-radius: 2rem;
   border: none;
-  background: linear-gradient(90deg, #f1c40f 0%, #e67e22 100%);
-  color: #232526;
+  background: linear-gradient(
+    90deg,
+    var(--text-secondary) 0%,
+    var(--text-accent) 100%
+  );
+  color: var(--bg-gradient-start);
   font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(241, 196, 15, 0.2);
-  transition: background 0.3s, transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 16px var(--theme-shadow);
+  transition: background 0.3s, transform 0.2s, box-shadow 0.2s, color 0.3s;
   letter-spacing: 0.05em;
   margin-top: 1rem;
 }
 
 button[type="submit"]:hover,
 button[type="button"]:hover {
-  background: linear-gradient(90deg, #e67e22 0%, #f1c40f 100%);
+  background: linear-gradient(
+    90deg,
+    var(--text-accent) 0%,
+    var(--text-secondary) 100%
+  );
   transform: translateY(-2px) scale(1.07);
-  box-shadow: 0 8px 24px rgba(241, 196, 15, 0.25);
+  box-shadow: 0 8px 24px var(--theme-shadow-hover);
 }
 
 button[type="submit"]:disabled,
@@ -186,16 +280,18 @@ button[type="button"]:disabled:hover {
 }
 
 .GamePage h2 {
-  color: #f1c40f;
+  color: var(--text-secondary);
   font-size: 2.2rem;
   margin-bottom: 1.2rem;
   letter-spacing: 0.04em;
+  transition: color 0.3s ease;
 }
 
 .GamePage h3 {
-  color: #e67e22;
+  color: var(--text-accent);
   font-size: 1.5rem;
   margin-bottom: 1rem;
+  transition: color 0.3s ease;
 }
 
 .GamePage .table-wrapper {
@@ -209,43 +305,50 @@ button[type="button"]:disabled:hover {
 .GamePage table {
   width: 100%;
   border-collapse: collapse;
-  background: #232526;
+  background: var(--table-bg);
   border-radius: 1rem;
   table-layout: fixed;
+  transition: background 0.3s ease;
 }
 
 .GamePage th,
 .GamePage td {
-  border: 1px solid #f1c40f;
+  border: 1px solid var(--table-border);
   padding: 0.4rem 0.2rem;
   text-align: center;
   word-break: break-word;
   font-size: 0.9rem;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: border-color 0.3s ease, background 0.3s ease, color 0.3s ease;
 }
 
 .GamePage th {
-  background: #232526;
-  color: #f1c40f;
+  background: var(--table-bg);
+  color: var(--text-secondary);
   font-weight: 600;
 }
 
 .GamePage td {
-  background: #414345;
-  color: #fff;
+  background: var(--table-cell-bg);
+  color: var(--text-primary);
 }
 
 .GamePage .winner-highlight {
-  background: linear-gradient(90deg, #f1c40f 0%, #e67e22 100%);
-  color: #232526;
+  background: linear-gradient(
+    90deg,
+    var(--text-secondary) 0%,
+    var(--text-accent) 100%
+  );
+  color: var(--bg-gradient-start);
   font-weight: bold;
   font-size: 1.3rem;
   border-radius: 1rem;
   padding: 1rem 2rem;
   margin-top: 2rem;
-  box-shadow: 0 4px 16px rgba(241, 196, 15, 0.2);
+  box-shadow: 0 4px 16px var(--theme-shadow);
   animation: fadeIn 0.7s;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .GamePage .error-message {
@@ -302,9 +405,9 @@ button[type="button"]:disabled:hover {
 
 ::-webkit-scrollbar {
   height: 8px;
-  background: #232526;
+  background: var(--scrollbar-bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #6b6a68ff;
+  background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
