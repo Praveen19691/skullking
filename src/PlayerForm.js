@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Initial setup form for configuring game parameters
+ * Allows users to set number of players (2-10) and rounds (2-10)
+ * Navigates to game page with selected configuration
+ */
 function PlayerForm() {
   const [playerCount, setPlayerCount] = useState(2);
   const [roundCount, setRoundCount] = useState(10);

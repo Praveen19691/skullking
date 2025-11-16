@@ -5,6 +5,13 @@ import PointTable from "../components/PointTable";
 import BiddingTable from "../components/BiddingTable";
 import TricksTable from "../components/TricksTable";
 
+/**
+ * Custom hook to generate tab configuration for the game interface
+ * Returns an array of tab objects with id, label, and content
+ *
+ * @param {object} props - Tab configuration props including game state and handlers
+ * @returns {Array} Array of tab configuration objects
+ */
 export function useGameTabs({
   playerNames,
   currentRound,
@@ -24,6 +31,10 @@ export function useGameTabs({
   onScoreSubmit,
   onNextRound,
 }) {
+  /**
+   * Determines which component to show in the Current Round tab
+   * based on the current game flow state (bidding -> tricks -> scores)
+   */
   const getCurrentRoundContent = () => {
     if (!biddingDone) {
       return (

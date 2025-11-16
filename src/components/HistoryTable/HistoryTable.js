@@ -1,6 +1,17 @@
 import React from "react";
 import "./HistoryTable.scss";
 
+/**
+ * Generic table component for displaying historical data (bids/tricks)
+ * Reusable across different data types with customizable styling
+ *
+ * @param {string} title - Table title
+ * @param {Array} playerNames - Array of player names for column headers
+ * @param {number} currentRound - Current round number (determines rows to show)
+ * @param {Array} data - 2D array of data to display [playerIndex][roundIndex]
+ * @param {string} dataLabel - Label for the data type (unused but kept for future use)
+ * @param {string} highlightColor - Optional color class for highlighting cells
+ */
 function HistoryTable({
   title,
   playerNames,

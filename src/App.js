@@ -4,7 +4,9 @@ import PlayerForm from "./PlayerForm";
 import GamePage from "./GamePage";
 import "./App.scss";
 
-// Simple NotFound component
+/**
+ * 404 Not Found component for invalid routes
+ */
 function NotFound() {
   return (
     <div className="card">
@@ -14,6 +16,13 @@ function NotFound() {
   );
 }
 
+/**
+ * Root App component with routing configuration
+ * Routes:
+ * - / : Player setup form
+ * - /game : Main game page
+ * - * : 404 page
+ */
 function App() {
   return (
     <div className="App">
