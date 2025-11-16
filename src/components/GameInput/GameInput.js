@@ -7,6 +7,7 @@ import "./GameInput.scss";
  *
  * @param {string} value - Current input value
  * @param {function} onChange - Change handler
+ * @param {function} onFocus - Focus handler to clear input
  * @param {boolean} hasError - Whether input has validation error
  * @param {string} errorMessage - Error message to display
  * @param {string} hintText - Optional hint text
@@ -16,6 +17,7 @@ import "./GameInput.scss";
 function GameInput({
   value,
   onChange,
+  onFocus,
   hasError,
   errorMessage,
   hintText,
@@ -30,6 +32,7 @@ function GameInput({
         max={maxValue}
         value={value}
         onChange={onChange}
+        onFocus={onFocus}
         required
         className={`game-input ${hasError ? "error" : ""} ${className}`}
       />

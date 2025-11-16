@@ -1,9 +1,8 @@
-import BiddingForm from "../components/BiddingForm";
-import TricksForm from "../components/TricksForm";
-import RoundScores from "../components/RoundScores";
-import PointTable from "../components/PointTable";
-import BiddingTable from "../components/BiddingTable";
-import TricksTable from "../components/TricksTable";
+import BiddingForm from "../components/BiddingForm/BiddingForm";
+import TricksForm from "../components/TricksForm/TricksForm";
+import RoundScores from "../components/RoundScores/RoundScores";
+import PointTable from "../components/PointTable/PointTable";
+import BiddingTricksTable from "../components/BiddingTricksTable/BiddingTricksTable";
 
 /**
  * Custom hook to generate tab configuration for the game interface
@@ -26,8 +25,10 @@ export function useGameTabs({
   biddingDone,
   scoreDone,
   onBidChange,
+  onBidFocus,
   onBiddingSubmit,
   onTricksChange,
+  onTricksFocus,
   onScoreSubmit,
   onNextRound,
 }) {
@@ -44,6 +45,7 @@ export function useGameTabs({
           bids={bids}
           bidInputErrors={bidInputErrors}
           onBidChange={onBidChange}
+          onBidFocus={onBidFocus}
           onSubmit={onBiddingSubmit}
         />
       );
@@ -58,6 +60,7 @@ export function useGameTabs({
           tricksInputErrors={tricksInputErrors}
           tricksError={tricksError}
           onTricksChange={onTricksChange}
+          onTricksFocus={onTricksFocus}
           onSubmit={onScoreSubmit}
         />
       );
@@ -81,23 +84,13 @@ export function useGameTabs({
       content: getCurrentRoundContent(),
     },
     {
-      id: "bidding",
-      label: "Bidding History",
+      id: "history",
+      label: "Bidding & Tricks History",
       content: (
-        <BiddingTable
+        <BiddingTricksTable
           playerNames={playerNames}
           currentRound={currentRound}
           bids={bids}
-        />
-      ),
-    },
-    {
-      id: "tricks",
-      label: "Tricks Won",
-      content: (
-        <TricksTable
-          playerNames={playerNames}
-          currentRound={currentRound}
           tricksWon={tricksWon}
         />
       ),

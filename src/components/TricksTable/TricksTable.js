@@ -1,5 +1,5 @@
 import React from "react";
-import HistoryTable from "../HistoryTable";
+import HistoryTable from "../HistoryTable/HistoryTable";
 
 function TricksTable({ playerNames, currentRound, tricksWon }) {
   return (

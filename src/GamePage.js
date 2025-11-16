@@ -8,10 +8,10 @@ import {
   getDenseRanks,
   isValidNumber,
 } from "./utils/scoring";
-import PlayerNameForm from "./components/PlayerNameForm";
-import FinalRankings from "./components/FinalRankings";
-import FinalPointTable from "./components/FinalPointTable";
-import Tabs from "./components/Tabs";
+import PlayerNameForm from "./components/PlayerNameForm/PlayerNameForm";
+import FinalRankings from "./components/FinalRankings/FinalRankings";
+import FinalPointTable from "./components/FinalPointTable/FinalPointTable";
+import Tabs from "./components/Tabs/Tabs";
 
 /**
  * Main game page component that orchestrates the entire Skull King game
@@ -129,12 +129,27 @@ function GamePage() {
   };
 
   /**
+   * Clear bid input when focused
+   */
+  const handleBidFocus = (playerIdx) => {
+    const updatedBids = bids.map((arr, idx) =>
+      idx === playerIdx
+        ? arr.map((v, rIdx) => (rIdx === currentRound - 1 ? "" : v))
+        : arr
+    );
+    setBids(updatedBids);
+  };
+
+  /**
    * Submit all bids for the current round
    * Transitions to tricks input phase
    */
   const handleBiddingSubmit = (e) => {
     e.preventDefault();
     if (bidInputErrors.some(Boolean)) return;
+    // Check if all bids are entered (not empty string)
+    const hasEmptyBids = bids.some((arr) => arr[currentRound - 1] === "");
+    if (hasEmptyBids) return;
     setBiddingDone(true);
   };
 
@@ -163,6 +178,18 @@ function GamePage() {
   };
 
   /**
+   * Clear tricks input when focused
+   */
+  const handleTricksFocus = (playerIdx) => {
+    const updatedTricks = tricksWon.map((arr, idx) =>
+      idx === playerIdx
+        ? arr.map((v, rIdx) => (rIdx === currentRound - 1 ? "" : v))
+        : arr
+    );
+    setTricksWon(updatedTricks);
+  };
+
+  /**
    * Calculate and submit scores for the current round
    * Validates that total tricks won equals the round number
    * Uses calculateBaseScore utility to compute points
@@ -170,6 +197,11 @@ function GamePage() {
   const handleScoreSubmit = (e) => {
     e.preventDefault();
     if (tricksInputErrors.some(Boolean)) return;
+    // Check if all tricks are entered (not empty string)
+    const hasEmptyTricks = tricksWon.some(
+      (arr) => arr[currentRound - 1] === ""
+    );
+    if (hasEmptyTricks) return;
     const totalTricks = tricksWon.reduce(
       (sum, arr) => sum + Number(arr[currentRound - 1]),
       0
@@ -236,8 +268,10 @@ function GamePage() {
     biddingDone,
     scoreDone,
     onBidChange: handleBidChange,
+    onBidFocus: handleBidFocus,
     onBiddingSubmit: handleBiddingSubmit,
     onTricksChange: handleTricksWonChange,
+    onTricksFocus: handleTricksFocus,
     onScoreSubmit: handleScoreSubmit,
     onNextRound: handleNextRound,
   });

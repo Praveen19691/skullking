@@ -1,5 +1,5 @@
 import React from "react";
-import HistoryTable from "../HistoryTable";
+import HistoryTable from "../HistoryTable/HistoryTable";
 
 function BiddingTable({ playerNames, currentRound, bids }) {
   return (
