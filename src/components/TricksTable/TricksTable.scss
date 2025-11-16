@@ -1,0 +1,15 @@
+.tricks-table {
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  td {
+    font-weight: 600;
+    color: #22f10f;
+  }
+
+  tbody tr:hover {
+    background: rgba(34, 241, 15, 0.08);
+  }
+}

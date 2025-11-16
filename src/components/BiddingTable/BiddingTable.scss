@@ -1,0 +1,15 @@
+.bidding-table {
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  td {
+    font-weight: 600;
+    color: #fdec4e;
+  }
+
+  tbody tr:hover {
+    background: rgba(241, 196, 15, 0.08);
+  }
+}

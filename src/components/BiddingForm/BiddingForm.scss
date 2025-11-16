@@ -1,0 +1,31 @@
+.bidding-form {
+  .bid-input {
+    width: 60px;
+    padding: 0.3rem;
+    border-radius: 0.5rem;
+    border: 1px solid #f1c40f;
+    text-align: center;
+
+    &.error {
+      border: 2px solid #e74c3c;
+      background: #ffeaea;
+      color: #e74c3c;
+    }
+  }
+
+  .error-text {
+    color: #e74c3c;
+    font-size: 0.9rem;
+    margin-top: 0.3rem;
+  }
+
+  .hint-text {
+    font-size: 0.9rem;
+    color: #f1c40f;
+    margin-top: 0.3rem;
+  }
+
+  .submit-btn {
+    margin-top: 1rem;
+  }
+}

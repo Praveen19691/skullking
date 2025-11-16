@@ -1,0 +1,26 @@
+.history-table {
+  h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  td {
+    font-weight: 600;
+
+    &.highlight-yellow {
+      color: #fdec4e;
+    }
+
+    &.highlight-green {
+      color: #22f10f;
+    }
+
+    &.highlight-orange {
+      color: #e67e22;
+    }
+  }
+
+  tbody tr:hover {
+    background: rgba(241, 196, 15, 0.08);
+  }
+}

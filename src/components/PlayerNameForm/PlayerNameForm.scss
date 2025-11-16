@@ -1,0 +1,30 @@
+.player-name-input {
+  margin-bottom: 1rem;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  input {
+    margin-left: 1rem;
+
+    &.invalid {
+      border: 2px solid #e74c3c;
+      background: #ffeaea;
+    }
+  }
+
+  .error-text {
+    color: #e74c3c;
+    font-size: 0.95rem;
+    margin-top: 0.3rem;
+  }
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}

@@ -1,0 +1,27 @@
+.final-rankings {
+  .winner-highlight {
+    background: linear-gradient(90deg, #22f10fff 0%, #c2ff5fff 100%);
+    color: #232526;
+    font-size: 2rem;
+    font-weight: bold;
+    border-radius: 2rem;
+    padding: 2rem 3rem;
+    margin-top: 2rem;
+    box-shadow: 0 8px 32px 0 rgba(241, 196, 15, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+
+    .trophy {
+      font-size: 2.5rem;
+    }
+
+    .winner-names {
+      color: #232526;
+      font-weight: 900;
+      border-radius: 0.5rem;
+      padding: 0.2rem 0.7rem;
+    }
+  }
+}

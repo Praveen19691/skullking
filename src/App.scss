@@ -70,7 +70,7 @@ body {
   margin-bottom: 2rem;
   max-width: 1500px;
   animation: fadeIn 0.9s;
-  width: 80%
+  width: 80%;
 }
 
 form {
@@ -182,7 +182,8 @@ button[type="button"]:hover {
 }
 
 .GamePage .table-wrapper {
-  max-width: 900px;
+  width: 100%;
+  max-width: 100%;
   overflow-x: auto;
   margin-top: 1rem;
   margin-bottom: 2rem;
@@ -190,10 +191,11 @@ button[type="button"]:hover {
 
 .GamePage table {
   width: 100%;
+  min-width: 800px;
   border-collapse: collapse;
   background: #232526;
   border-radius: 1rem;
-  table-layout: fixed;
+  table-layout: auto;
 }
 
 .GamePage th,

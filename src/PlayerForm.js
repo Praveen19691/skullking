@@ -15,11 +15,11 @@ function PlayerForm() {
     <form onSubmit={handleSubmit}>
       <h1 className="page-heading">Skull King Setup</h1>
       <label>
-        Player Count (2-8):
+        Player Count (2-10):
         <input
           type="number"
           min={2}
-          max={8}
+          max={10}
           value={playerCount}
           onChange={(e) => setPlayerCount(Number(e.target.value))}
           required
