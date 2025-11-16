@@ -1,65 +1,65 @@
 .bidding-tricks-table {
-  // Player color scheme - 10 distinct colors matching dark theme
+  // Player color scheme - Alternating 2 colors for better readability
   $player-colors: (
     0: (
       #f1c40f,
       rgba(241, 196, 15, 0.12),
     ),
-    // Gold
+    // Gold (even players - theme color)
     1:
       (
-        #3498db,
-        rgba(52, 152, 219, 0.12),
+        #c87f0a,
+        rgba(200, 127, 10, 0.12),
       ),
-    // Blue
+    // Darker gold (odd players)
     2:
       (
-        #e74c3c,
-        rgba(231, 76, 60, 0.12),
+        #f1c40f,
+        rgba(241, 196, 15, 0.12),
       ),
-    // Red
+    // Gold
     3:
       (
-        #2ecc71,
-        rgba(46, 204, 113, 0.12),
+        #c87f0a,
+        rgba(200, 127, 10, 0.12),
       ),
-    // Green
+    // Darker gold
     4:
       (
-        #9b59b6,
-        rgba(155, 89, 182, 0.12),
+        #f1c40f,
+        rgba(241, 196, 15, 0.12),
       ),
-    // Purple
+    // Gold
     5:
       (
-        #e67e22,
-        rgba(230, 126, 34, 0.12),
+        #c87f0a,
+        rgba(200, 127, 10, 0.12),
       ),
-    // Orange
+    // Darker gold
     6:
       (
-        #1abc9c,
-        rgba(26, 188, 156, 0.12),
+        #f1c40f,
+        rgba(241, 196, 15, 0.12),
       ),
-    // Turquoise
+    // Gold
     7:
       (
-        #f39c12,
-        rgba(243, 156, 18, 0.12),
+        #c87f0a,
+        rgba(200, 127, 10, 0.12),
       ),
-    // Dark Yellow
+    // Darker gold
     8:
       (
-        #95a5a6,
-        rgba(149, 165, 166, 0.12),
+        #f1c40f,
+        rgba(241, 196, 15, 0.12),
       ),
-    // Gray
+    // Gold
     9:
       (
-        #e91e63,
-        rgba(233, 30, 99, 0.12),
+        #c87f0a,
+        rgba(200, 127, 10, 0.12),
       )
-      // Pink,,,,,,,
+      // Darker gold,,,
   );
 
   .player-header {
