@@ -71,7 +71,8 @@
 
       .round-stats {
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
+        align-items: center;
         gap: 0.5rem;
 
         .stat {
@@ -79,9 +80,11 @@
           display: flex;
           flex-direction: column;
           align-items: center;
+          justify-content: center;
           font-size: 1rem;
           color: var(--text-secondary);
           font-weight: 700;
+          text-align: center;
 
           label {
             font-size: 0.8rem;
@@ -193,7 +196,7 @@
         var(--player-color-dark),
         var(--player-bg-dark),
       )
-      // Darker gold,,,,,
+      // Darker gold,,,,,,
   );
 
   .player-header {
