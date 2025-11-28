@@ -12,6 +12,13 @@
   overflow-x: auto;
   overflow-y: hidden;
   transition: border-color 0.3s ease;
+
+  // Hide "Score Table" tab on mobile
+  @media (max-width: 767px) {
+    .tab-button[data-tab-id="scores"] {
+      display: none;
+    }
+  }
 }
 
 .tab-button {
@@ -101,7 +108,32 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 576px) {
+  .tabs-container {
+    margin-top: 1rem;
+  }
+
+  .tabs-header {
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .tab-button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    min-width: auto;
+  }
+
+  .tabs-content {
+    min-height: 300px;
+  }
+
+  .tab-panel {
+    min-height: 300px;
+  }
+}
+
+@media (min-width: 577px) and (max-width: 900px) {
   .tabs-header {
     gap: 0.25rem;
   }

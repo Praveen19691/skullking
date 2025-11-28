@@ -1,11 +1,20 @@
 .tricks-form {
+  width: 100%;
+  overflow-x: auto;
+
   .tricks-input {
-    width: 60px;
+    width: 50px;
     padding: 0.3rem;
     border-radius: 0.5rem;
     border: 1px solid var(--input-border);
     text-align: center;
+    font-size: 14px;
     transition: border-color 0.3s ease;
+
+    @media (min-width: 576px) {
+      width: 60px;
+      font-size: 16px;
+    }
 
     &.error {
       border: 2px solid #e74c3c;
@@ -16,15 +25,23 @@
 
   .error-text {
     color: #e74c3c;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     margin-top: 0.3rem;
+
+    @media (min-width: 576px) {
+      font-size: 0.9rem;
+    }
   }
 
   .hint-text {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: var(--text-secondary);
     margin-top: 0.3rem;
     transition: color 0.3s ease;
+
+    @media (min-width: 576px) {
+      font-size: 0.9rem;
+    }
   }
 
   .submit-btn {
@@ -35,5 +52,10 @@
     color: #e74c3c;
     font-weight: bold;
     margin-top: 1rem;
+    font-size: 0.9rem;
+
+    @media (min-width: 576px) {
+      font-size: 1rem;
+    }
   }
 }

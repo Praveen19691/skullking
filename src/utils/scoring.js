@@ -49,5 +49,5 @@ export function getDenseRanks(scores) {
  */
 export function isValidNumber(value) {
   if (value === "") return true;
-  return /^\d+$/.test(value);
+  return /^-?\d+$/.test(value);
 }

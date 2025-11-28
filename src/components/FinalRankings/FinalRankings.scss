@@ -1,4 +1,94 @@
 .final-rankings {
+  // Mobile Card View
+  .mobile-card-view {
+    display: block;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  // Desktop Table View
+  .desktop-table-view {
+    display: none;
+
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+
+  .ranking-card {
+    margin-bottom: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--card-bg);
+    transition: all 0.3s ease;
+
+    &.winner-card {
+      border: 3px solid var(--text-secondary);
+      background: linear-gradient(
+        90deg,
+        rgba(241, 196, 15, 0.15) 0%,
+        rgba(230, 126, 34, 0.15) 100%
+      );
+      box-shadow: 0 0 20px rgba(241, 196, 15, 0.3);
+    }
+
+    .ranking-card-header {
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: var(--table-bg);
+
+      .rank-badge {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: var(--text-secondary);
+        background: var(--table-cell-bg);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid var(--text-secondary);
+        flex-shrink: 0;
+      }
+
+      .player-info {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+
+        .player-name {
+          font-size: 1.2rem;
+          font-weight: 700;
+          color: var(--text-secondary);
+
+          .crown {
+            margin-left: 0.5rem;
+            font-size: 1.3rem;
+          }
+        }
+
+        .player-score {
+          font-size: 1.5rem;
+          font-weight: 800;
+          color: var(--text-primary);
+        }
+      }
+
+      .medal-container {
+        font-size: 2rem;
+        flex-shrink: 0;
+      }
+    }
+  }
+
   // Special styling for winner row in the table
   .winner-row {
     background: linear-gradient(

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { Container } from "react-bootstrap";
 import PlayerForm from "./PlayerForm";
 import GamePage from "./GamePage";
 import ThemeToggle from "./components/ThemeToggle/ThemeToggle";
@@ -44,13 +45,13 @@ function App() {
   return (
     <div className="App">
       <ThemeToggle isDarkMode={isDarkMode} onToggle={toggleTheme} />
-      <header className="App-header">
+      <Container fluid className="App-header">
         <Routes>
           <Route path="/" element={<PlayerForm />} />
           <Route path="/game" element={<GamePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </header>
+      </Container>
     </div>
   );
 }

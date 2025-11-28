@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Container } from "react-bootstrap";
 import { useGameState } from "./hooks/useGameState";
 import { useValidation } from "./hooks/useValidation";
 import { useGameTabs } from "./hooks/useGameTabs";
@@ -279,10 +280,10 @@ function GamePage() {
   });
 
   return (
-    <div className="GamePage">
-      <div className="header-title">Skull King Scoreboard</div>
+    <Container fluid className="GamePage px-2 px-md-4">
+      <div className="header-title text-center">Skull King Scoreboard</div>
       {submitted && !gameFinished && (
-        <div className="round-indicator">
+        <div className="round-indicator text-center my-3">
           Round {currentRound} of {TOTAL_ROUNDS}
         </div>
       )}
@@ -297,7 +298,7 @@ function GamePage() {
       ) : (
         <Tabs tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
       )}
-    </div>
+    </Container>
   );
 }
 

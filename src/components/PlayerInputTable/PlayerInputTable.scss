@@ -1,9 +1,77 @@
+.player-input-wrapper {
+  // Mobile Card View
+  .mobile-card-view {
+    display: block;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  // Desktop Table View
+  .desktop-table-view {
+    display: none;
+
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+
+  .player-input-card {
+    margin-bottom: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--card-bg);
+
+    .player-card-header {
+      padding: 1rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-bottom: 2px solid var(--border-color);
+      text-align: center;
+
+      .player-name {
+        color: white;
+      }
+    }
+
+    .input-container {
+      padding: 1.5rem 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  // Neutral background for all players on mobile
+  .player-input-card .player-card-header {
+    background: var(--table-bg);
+
+    .player-name {
+      color: var(--text-secondary);
+    }
+  }
+}
+
 .player-input-table {
   width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 
   th,
   td {
     text-align: center;
-    padding: 0.5rem 0.2rem;
+    padding: 0.4rem 0.15rem;
+    font-size: 0.85rem;
+
+    @media (min-width: 576px) {
+      padding: 0.5rem 0.2rem;
+      font-size: 0.9rem;
+    }
+
+    @media (min-width: 768px) {
+      font-size: 1rem;
+    }
   }
 }

@@ -33,32 +33,62 @@ function PlayerInputTable({
   };
 
   return (
-    <table className="player-input-table">
-      <thead>
-        <tr>
-          {playerNames.map((name, idx) => (
-            <th key={idx}>{name}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          {playerNames.map((_, idx) => (
-            <td key={idx}>
+    <div className="player-input-wrapper">
+      {/* Mobile Card View */}
+      <div className="mobile-card-view">
+        {playerNames.map((name, playerIdx) => (
+          <div
+            key={playerIdx}
+            className={`player-input-card player-${playerIdx}`}
+          >
+            <div className="player-card-header">
+              <span className="player-name">{name}</span>
+            </div>
+            <div className="input-container">
               <GameInput
-                value={values[idx][currentRound - 1]}
-                onChange={(e) => onChange(idx, e.target.value)}
-                onFocus={() => onFocus(idx)}
-                hasError={errors[idx]}
+                value={values[playerIdx][currentRound - 1]}
+                onChange={(e) => onChange(playerIdx, e.target.value)}
+                onFocus={() => onFocus(playerIdx)}
+                hasError={errors[playerIdx]}
                 errorMessage={errorMessage}
                 hintText={getHintText()}
                 maxValue={maxValue}
               />
-            </td>
-          ))}
-        </tr>
-      </tbody>
-    </table>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop Table View */}
+      <div className="desktop-table-view">
+        <table className="player-input-table">
+          <thead>
+            <tr>
+              {playerNames.map((name, idx) => (
+                <th key={idx}>{name}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              {playerNames.map((_, idx) => (
+                <td key={idx}>
+                  <GameInput
+                    value={values[idx][currentRound - 1]}
+                    onChange={(e) => onChange(idx, e.target.value)}
+                    onFocus={() => onFocus(idx)}
+                    hasError={errors[idx]}
+                    errorMessage={errorMessage}
+                    hintText={getHintText()}
+                    maxValue={maxValue}
+                  />
+                </td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
 

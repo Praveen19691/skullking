@@ -28,7 +28,6 @@ function GameInput({
     <div className="game-input-container">
       <input
         type="text"
-        min={0}
         max={maxValue}
         value={value}
         onChange={onChange}

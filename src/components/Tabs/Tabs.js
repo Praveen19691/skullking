@@ -17,6 +17,7 @@ function Tabs({ tabs, activeTab, onTabChange }) {
         {tabs.map((tab) => (
           <button
             key={tab.id}
+            data-tab-id={tab.id}
             className={`tab-button ${activeTab === tab.id ? "active" : ""}`}
             onClick={() => onTabChange(tab.id)}
           >

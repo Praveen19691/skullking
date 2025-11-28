@@ -1,4 +1,5 @@
 import React from "react";
+import { Table } from "react-bootstrap";
 import "./BiddingTricksTable.scss";
 import TableHeaderRow from "./TableHeaderRow";
 import PlayerDataCells from "./PlayerDataCells";
@@ -46,9 +47,54 @@ function BiddingTricksTable({
       {/* Table title */}
       <h3>Bidding, Tricks & Scores History</h3>
 
-      {/* Wrapper div enables horizontal scrolling on small screens */}
-      <div className="table-wrapper">
-        <table>
+      {/* Mobile Card View */}
+      <div className="mobile-card-view">
+        {playerNames.map((playerName, playerIdx) => (
+          <div
+            key={playerIdx}
+            className={`player-card player-${playerIdx % 10}`}
+          >
+            <div className="player-card-header">
+              <h4>{playerName}</h4>
+              <div className="total-score">
+                Total: <strong>{totalScores[playerIdx]}</strong>
+              </div>
+            </div>
+            <div className="rounds-container">
+              {Array.from({ length: currentRound }).map((_, roundIdx) => (
+                <div key={roundIdx} className="round-data">
+                  <div className="round-label">Round {roundIdx + 1}</div>
+                  <div className="round-stats">
+                    <span className="stat">
+                      <label>Bid:</label> {bids[playerIdx][roundIdx]}
+                    </span>
+                    <span className="stat">
+                      <label>Tricks:</label> {tricksWon[playerIdx][roundIdx]}
+                    </span>
+                    <span className="stat">
+                      <label>Score:</label>{" "}
+                      <strong
+                        className={
+                          scores[playerIdx][roundIdx] >= 0
+                            ? "positive"
+                            : "negative"
+                        }
+                      >
+                        {scores[playerIdx][roundIdx] >= 0 ? "+" : ""}
+                        {scores[playerIdx][roundIdx]}
+                      </strong>
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop Table View */}
+      <div className="table-responsive desktop-table-view">
+        <Table striped bordered hover size="sm" className="mb-0">
           {/* Table Header: Player names and column labels */}
           <thead>
             <TableHeaderRow playerNames={playerNames} />
@@ -91,7 +137,7 @@ function BiddingTricksTable({
               totalScores={totalScores}
             />
           </tbody>
-        </table>
+        </Table>
       </div>
     </div>
   );

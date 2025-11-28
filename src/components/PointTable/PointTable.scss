@@ -4,6 +4,88 @@
     margin-bottom: 1rem;
   }
 
+  // Mobile Card View
+  .mobile-card-view {
+    display: block;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+
+  // Desktop Table View
+  .desktop-table-view {
+    display: none;
+
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+
+  .player-card {
+    margin-bottom: 1.5rem;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--card-bg);
+
+    .player-card-header {
+      padding: 1rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      border-bottom: 2px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .total-score {
+        font-size: 1.3rem;
+        font-weight: 800;
+      }
+    }
+
+    .rounds-container {
+      padding: 0.75rem;
+
+      .round-data {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.6rem;
+        margin-bottom: 0.5rem;
+        border-radius: 4px;
+        background: var(--bg-gradient-start);
+
+        .round-label {
+          font-weight: 600;
+          color: var(--text-primary);
+        }
+
+        .round-value {
+          font-weight: 700;
+          color: var(--text-secondary);
+
+          &.positive {
+            color: var(--success-color);
+          }
+
+          &.negative {
+            color: var(--error-color);
+          }
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  // Neutral styling for all players on mobile
+  .player-card .player-card-header {
+    background: var(--table-bg);
+    color: var(--text-secondary);
+  }
+
   .total-row {
     font-weight: bold;
     background: var(--highlight-bg);

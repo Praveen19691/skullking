@@ -1,4 +1,12 @@
 .round-scores {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .table-wrapper {
+    width: 100%;
+  }
+
   .next-round-btn {
     margin-top: 1rem;
   }

@@ -23,36 +23,65 @@ function HistoryTable({
   return (
     <div className="card history-table">
       <h3>{title}</h3>
-      <div className="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Round</th>
-              {playerNames.map((name, idx) => (
-                <th key={idx}>{name}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {Array.from({ length: currentRound }).map((_, roundIdx) => (
-              <tr key={roundIdx}>
-                <td>
-                  <strong>{roundIdx + 1}</strong>
-                </td>
-                {playerNames.map((_, playerIdx) => (
-                  <td
-                    key={playerIdx}
-                    className={
+
+      {/* Mobile Card View */}
+      <div className="mobile-card-view">
+        {playerNames.map((name, playerIdx) => (
+          <div key={playerIdx} className={`player-card player-${playerIdx}`}>
+            <div className="player-card-header">
+              <span className="player-name">{name}</span>
+            </div>
+            <div className="rounds-container">
+              {Array.from({ length: currentRound }).map((_, roundIdx) => (
+                <div key={roundIdx} className="round-data">
+                  <span className="round-label">Round {roundIdx + 1}:</span>
+                  <span
+                    className={`round-value ${
                       highlightColor ? `highlight-${highlightColor}` : ""
-                    }
+                    }`}
                   >
                     {data[playerIdx][roundIdx]}
-                  </td>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop Table View */}
+      <div className="desktop-table-view">
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Round</th>
+                {playerNames.map((name, idx) => (
+                  <th key={idx}>{name}</th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {Array.from({ length: currentRound }).map((_, roundIdx) => (
+                <tr key={roundIdx}>
+                  <td>
+                    <strong>{roundIdx + 1}</strong>
+                  </td>
+                  {playerNames.map((_, playerIdx) => (
+                    <td
+                      key={playerIdx}
+                      className={
+                        highlightColor ? `highlight-${highlightColor}` : ""
+                      }
+                    >
+                      {data[playerIdx][roundIdx]}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

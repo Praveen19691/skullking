@@ -25,45 +25,84 @@ function FinalRankings({ playerNames, totalScores, denseRanks, winners }) {
   return (
     <div className="card final-rankings">
       <h3>Final Rankings</h3>
-      <div className="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Player</th>
-              <th>Score</th>
-              <th>Medal</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* Display each player's final standing */}
-            {sortedPlayers.map((player) => {
-              // Check if this player is a winner
-              const isWinner = winners.includes(player.name);
 
-              return (
-                <tr key={player.name} className={isWinner ? "winner-row" : ""}>
-                  <td>{player.rank}</td>
-                  <td>
+      {/* Mobile Card View */}
+      <div className="mobile-card-view">
+        {sortedPlayers.map((player) => {
+          const isWinner = winners.includes(player.name);
+          return (
+            <div
+              key={player.name}
+              className={`ranking-card ${isWinner ? "winner-card" : ""}`}
+            >
+              <div className="ranking-card-header">
+                <div className="rank-badge">#{player.rank}</div>
+                <div className="player-info">
+                  <span className="player-name">
                     {player.name}
-                    {/* Add crown emoji next to winner name */}
                     {isWinner && (
                       <span className="crown" role="img" aria-label="crown">
                         👑
                       </span>
                     )}
-                  </td>
-                  <td>{player.score}</td>
-                  <td>
-                    {/* Show medal for top 3 ranks */}
-                    <MedalBadge rank={player.rank} />
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+                  </span>
+                  <span className="player-score">{player.score}</span>
+                </div>
+                <div className="medal-container">
+                  <MedalBadge rank={player.rank} />
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
+
+      {/* Desktop Table View */}
+      <div className="desktop-table-view">
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>Score</th>
+                <th>Medal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {/* Display each player's final standing */}
+              {sortedPlayers.map((player) => {
+                // Check if this player is a winner
+                const isWinner = winners.includes(player.name);
+
+                return (
+                  <tr
+                    key={player.name}
+                    className={isWinner ? "winner-row" : ""}
+                  >
+                    <td>{player.rank}</td>
+                    <td>
+                      {player.name}
+                      {/* Add crown emoji next to winner name */}
+                      {isWinner && (
+                        <span className="crown" role="img" aria-label="crown">
+                          👑
+                        </span>
+                      )}
+                    </td>
+                    <td>{player.score}</td>
+                    <td>
+                      {/* Show medal for top 3 ranks */}
+                      <MedalBadge rank={player.rank} />
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       {/* Winner announcement with trophy and special effects */}
       <div className="winner-highlight">
         <span className="confetti left" role="img" aria-label="confetti">

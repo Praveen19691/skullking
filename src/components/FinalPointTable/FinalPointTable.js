@@ -15,41 +15,71 @@ function FinalPointTable({ playerNames, scores, totalScores, totalRounds }) {
   return (
     <div className="card final-point-table">
       <h3>Final Point Table</h3>
-      <div className="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Round</th>
-              {playerNames.map((name, idx) => (
-                <th key={idx}>{name}</th>
+
+      {/* Mobile Card View */}
+      <div className="mobile-card-view">
+        {playerNames.map((name, playerIdx) => (
+          <div key={playerIdx} className={`player-card player-${playerIdx}`}>
+            <div className="player-card-header">
+              <span className="player-name">{name}</span>
+              <span className="final-total">{totalScores[playerIdx]}</span>
+            </div>
+            <div className="rounds-container">
+              {Array.from({ length: totalRounds }).map((_, roundIdx) => (
+                <div key={roundIdx} className="round-data">
+                  <span className="round-label">Round {roundIdx + 1}:</span>
+                  <span
+                    className={`round-value ${
+                      scores[playerIdx][roundIdx] >= 0 ? "positive" : "negative"
+                    }`}
+                  >
+                    {scores[playerIdx][roundIdx]}
+                  </span>
+                </div>
               ))}
-            </tr>
-          </thead>
-          <tbody>
-            {/* Display score for each round */}
-            {Array.from({ length: totalRounds }).map((_, roundIdx) => (
-              <tr key={roundIdx}>
-                <td>
-                  <strong>{roundIdx + 1}</strong>
-                </td>
-                {playerNames.map((_, playerIdx) => (
-                  <td key={playerIdx}>{scores[playerIdx][roundIdx]}</td>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Desktop Table View */}
+      <div className="desktop-table-view">
+        <div className="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Round</th>
+                {playerNames.map((name, idx) => (
+                  <th key={idx}>{name}</th>
                 ))}
               </tr>
-            ))}
-            {/* Final total row highlighting cumulative scores */}
-            <tr className="final-total-row">
-              <td>
-                <strong>Final Total</strong>
-              </td>
-              {totalScores.map((score, idx) => (
-                <td key={idx}>
-                  <strong>{score}</strong>
-                </td>
+            </thead>
+            <tbody>
+              {/* Display score for each round */}
+              {Array.from({ length: totalRounds }).map((_, roundIdx) => (
+                <tr key={roundIdx}>
+                  <td>
+                    <strong>{roundIdx + 1}</strong>
+                  </td>
+                  {playerNames.map((_, playerIdx) => (
+                    <td key={playerIdx}>{scores[playerIdx][roundIdx]}</td>
+                  ))}
+                </tr>
               ))}
-            </tr>
-          </tbody>
-        </table>
+              {/* Final total row highlighting cumulative scores */}
+              <tr className="final-total-row">
+                <td>
+                  <strong>Final Total</strong>
+                </td>
+                {totalScores.map((score, idx) => (
+                  <td key={idx}>
+                    <strong>{score}</strong>
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

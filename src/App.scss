@@ -32,6 +32,18 @@
   --player-color-dark: #c87f0a;
   --player-bg-light: rgba(241, 196, 15, 0.12);
   --player-bg-dark: rgba(200, 127, 10, 0.12);
+
+  // 10 distinct player colors for dark theme
+  --player-0-color: #e74c3c; // Red
+  --player-1-color: #3498db; // Blue
+  --player-2-color: #2ecc71; // Green
+  --player-3-color: #f39c12; // Orange
+  --player-4-color: #9b59b6; // Purple
+  --player-5-color: #1abc9c; // Turquoise
+  --player-6-color: #e91e63; // Pink
+  --player-7-color: #00bcd4; // Cyan
+  --player-8-color: #ff9800; // Amber
+  --player-9-color: #8bc34a; // Light Green
 }
 
 // Light theme colors
@@ -67,6 +79,18 @@
   --player-color-dark: #6b4f0a;
   --player-bg-light: rgba(139, 105, 20, 0.18);
   --player-bg-dark: rgba(107, 79, 10, 0.18);
+
+  // 10 distinct player colors for light theme
+  --player-0-color: #c0392b; // Dark Red
+  --player-1-color: #2980b9; // Dark Blue
+  --player-2-color: #27ae60; // Dark Green
+  --player-3-color: #d68910; // Dark Orange
+  --player-4-color: #8e44ad; // Dark Purple
+  --player-5-color: #16a085; // Dark Turquoise
+  --player-6-color: #c2185b; // Dark Pink
+  --player-7-color: #0097a7; // Dark Cyan
+  --player-8-color: #f57c00; // Dark Amber
+  --player-9-color: #689f38; // Dark Light Green
 }
 
 body {
@@ -85,6 +109,7 @@ body {
 
 .App {
   text-align: center;
+  position: relative;
 }
 
 .App-logo {
@@ -112,80 +137,159 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding-top: 2rem;
+  padding: 1rem 0.5rem;
   transition: background 0.3s ease, color 0.3s ease;
+
+  @media (min-width: 768px) {
+    padding-top: 2rem;
+  }
 }
 
 .header-title {
-  font-size: 2.8rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   color: var(--text-secondary);
   margin-bottom: 0.5rem;
   text-shadow: 2px 2px 8px var(--bg-gradient-start);
   transition: color 0.3s ease;
+  padding: 0 0.5rem;
+  max-width: 100%;
+  word-wrap: break-word;
+
+  @media (min-width: 576px) {
+    font-size: 2rem;
+    letter-spacing: 0.06em;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 2.8rem;
+    letter-spacing: 0.08em;
+    padding: 0;
+  }
 }
 
 .page-heading {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: var(--text-secondary);
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   text-align: center;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
   text-shadow: 2px 2px 8px var(--bg-gradient-start);
   transition: color 0.3s ease;
+  padding: 0 0.5rem;
+  max-width: 100%;
+  word-wrap: break-word;
+
+  @media (min-width: 576px) {
+    font-size: 1.8rem;
+    letter-spacing: 0.04em;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 2.5rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 2rem;
+    padding: 0;
+  }
 }
 
 .round-indicator {
-  font-size: 1.5rem;
+  font-size: 1rem;
   color: var(--text-accent);
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
   transition: color 0.3s ease;
+  padding: 0 0.5rem;
+
+  @media (min-width: 576px) {
+    font-size: 1.2rem;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    padding: 0;
+  }
 }
 
 .card {
   background: var(--card-bg);
-  border-radius: 2rem;
+  border-radius: 1rem;
   box-shadow: 0 12px 36px 0 rgba(31, 38, 135, 0.37);
-  padding: 1.5rem 1rem;
-  margin-bottom: 2rem;
+  padding: 0.75rem 0.5rem;
+  margin-bottom: 1rem;
   max-width: 1400px;
   animation: fadeIn 0.9s;
-  width: 98%;
+  width: 100%;
   transition: background 0.3s ease;
+  overflow-x: hidden;
+
+  @media (min-width: 576px) {
+    padding: 1rem 0.75rem;
+    border-radius: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    border-radius: 2rem;
+    padding: 1.5rem 1rem;
+    margin-bottom: 2rem;
+    width: 98%;
+  }
 }
 
 form {
-  width: 80%;
+  width: 100%;
+  max-width: 500px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
+  padding: 0 1rem;
+
+  @media (min-width: 768px) {
+    width: 80%;
+    max-width: 600px;
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  @media (min-width: 992px) {
+    max-width: 700px;
+  }
 }
 
 label {
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--text-secondary);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.7rem;
+  gap: 0.5rem;
   letter-spacing: 0.03em;
   transition: color 0.3s ease;
+  width: 100%;
+
+  @media (min-width: 768px) {
+    font-size: 1.3rem;
+    gap: 0.7rem;
+    width: auto;
+  }
 }
 
 input[type="number"],
 input[type="text"] {
-  width: 220px;
-  padding: 0.9rem 1.2rem;
-  border-radius: 1.5rem;
+  width: 100%;
+  max-width: 220px;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
   border: 2px solid var(--input-border);
-  font-size: 1.15rem;
+  font-size: 16px;
   font-weight: 700;
   background: var(--input-bg);
   color: var(--input-text);
@@ -193,6 +297,24 @@ input[type="text"] {
   transition: box-shadow 0.2s, border 0.2s, background 0.2s, color 0.2s;
   outline: none;
   appearance: none;
+
+  @media (min-width: 576px) {
+    font-size: 1rem;
+    padding: 0.85rem 1.1rem;
+  }
+
+  @media (min-width: 768px) {
+    width: 220px;
+    max-width: 220px;
+    font-size: 1.15rem;
+    padding: 0.9rem 1.2rem;
+    border-radius: 1.5rem;
+  }
+
+  @media (min-width: 992px) {
+    width: 250px;
+    max-width: 250px;
+  }
 }
 
 /* Hide number input arrows for Chrome, Safari, Edge */
@@ -227,8 +349,8 @@ input[type="text"].error {
 
 button[type="submit"],
 button[type="button"] {
-  padding: 0.9rem 2.5rem;
-  border-radius: 2rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1.5rem;
   border: none;
   background: linear-gradient(
     90deg,
@@ -236,13 +358,29 @@ button[type="button"] {
     var(--text-accent) 100%
   );
   color: var(--bg-gradient-start);
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   box-shadow: 0 4px 16px var(--theme-shadow);
+  width: 100%;
+  max-width: 300px;
   transition: background 0.3s, transform 0.2s, box-shadow 0.2s, color 0.3s;
   letter-spacing: 0.05em;
   margin-top: 1rem;
+
+  @media (min-width: 576px) {
+    font-size: 1.1rem;
+    padding: 0.85rem 2rem;
+  }
+
+  @media (min-width: 768px) {
+    font-size: 1.2rem;
+    padding: 0.9rem 2.5rem;
+    border-radius: 2rem;
+    width: auto;
+    max-width: none;
+    min-width: 200px;
+  }
 }
 
 button[type="submit"]:hover,
@@ -382,24 +520,34 @@ button[type="button"]:disabled:hover {
   .card,
   .GamePage .table-wrapper,
   form {
-    max-width: 100vw;
+    max-width: 100%;
     width: 100%;
-    padding: 1rem;
+    padding: 0.75rem;
   }
+
   .GamePage table {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     width: 100%;
-    max-width: 100vw;
+    max-width: 100%;
     table-layout: fixed;
   }
+
   .GamePage th,
   .GamePage td {
-    padding: 0.3rem 0.1rem;
-    font-size: 0.75rem;
+    padding: 0.25rem 0.1rem;
+    font-size: 0.7rem;
   }
+
   input[type="number"],
   input[type="text"] {
     width: 100%;
+    max-width: 100%;
+  }
+
+  button[type="submit"],
+  button[type="button"] {
+    width: 100%;
+    max-width: 300px;
   }
 }
 
