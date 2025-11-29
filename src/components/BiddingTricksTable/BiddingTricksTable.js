@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table } from "react-bootstrap";
 import "./BiddingTricksTable.scss";
 import TableHeaderRow from "./TableHeaderRow";
@@ -42,6 +42,15 @@ function BiddingTricksTable({
   scores,
   totalScores,
 }) {
+  const [expandedCards, setExpandedCards] = useState({});
+
+  const toggleCard = (playerIdx) => {
+    setExpandedCards((prev) => ({
+      ...prev,
+      [playerIdx]: !prev[playerIdx],
+    }));
+  };
+
   return (
     <div className="card bidding-tricks-table">
       {/* Table title */}
@@ -52,42 +61,50 @@ function BiddingTricksTable({
         {playerNames.map((playerName, playerIdx) => (
           <div
             key={playerIdx}
-            className={`player-card player-${playerIdx % 10}`}
+            className={`player-card player-${playerIdx % 10} ${
+              expandedCards[playerIdx] ? "expanded" : "collapsed"
+            }`}
+            onClick={() => toggleCard(playerIdx)}
           >
             <div className="player-card-header">
               <h4>{playerName}</h4>
               <div className="total-score">
                 Total: <strong>{totalScores[playerIdx]}</strong>
               </div>
+              <span className="expand-icon">
+                {expandedCards[playerIdx] ? "▼" : "▶"}
+              </span>
             </div>
-            <div className="rounds-container">
-              {Array.from({ length: currentRound }).map((_, roundIdx) => (
-                <div key={roundIdx} className="round-data">
-                  <div className="round-label">Round {roundIdx + 1}</div>
-                  <div className="round-stats">
-                    <span className="stat">
-                      <label>Bid:</label> {bids[playerIdx][roundIdx]}
-                    </span>
-                    <span className="stat">
-                      <label>Tricks:</label> {tricksWon[playerIdx][roundIdx]}
-                    </span>
-                    <span className="stat">
-                      <label>Score:</label>{" "}
-                      <strong
-                        className={
-                          scores[playerIdx][roundIdx] >= 0
-                            ? "positive"
-                            : "negative"
-                        }
-                      >
-                        {scores[playerIdx][roundIdx] >= 0 ? "+" : ""}
-                        {scores[playerIdx][roundIdx]}
-                      </strong>
-                    </span>
+            {expandedCards[playerIdx] && (
+              <div className="rounds-container">
+                {Array.from({ length: currentRound }).map((_, roundIdx) => (
+                  <div key={roundIdx} className="round-data">
+                    <div className="round-label">Round {roundIdx + 1}</div>
+                    <div className="round-stats">
+                      <span className="stat">
+                        <label>Bid:</label> {bids[playerIdx][roundIdx]}
+                      </span>
+                      <span className="stat">
+                        <label>Tricks:</label> {tricksWon[playerIdx][roundIdx]}
+                      </span>
+                      <span className="stat">
+                        <label>Score:</label>{" "}
+                        <strong
+                          className={
+                            scores[playerIdx][roundIdx] >= 0
+                              ? "positive"
+                              : "negative"
+                          }
+                        >
+                          {scores[playerIdx][roundIdx] >= 0 ? "+" : ""}
+                          {scores[playerIdx][roundIdx]}
+                        </strong>
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </div>
